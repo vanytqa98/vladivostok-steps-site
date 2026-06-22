@@ -1,7 +1,3 @@
 [
-  { "name": "Маша", "week": 1, "steps": 54000 },
-  { "name": "Игорь", "week": 1, "steps": 62000 },
-  { "name": "Оля", "week": 1, "steps": 48700 },
-  { "name": "Дима", "week": 2, "steps": 73100 },
-  { "name": "Катя", "week": 2, "steps": 65900 }
+  { "name": "Ваня", "week": 1, "steps": 54000 },
 ]
