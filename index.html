@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Шагаем до Владивостока 🦶</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<style>
+/* === TOKENS === */
+:root, [data-theme="light"] {
+  --color-bg: #f0f4f8;
+  --color-surface: #ffffff;
+  --color-surface-2: #f7f9fb;
+  --color-surface-offset: #e8edf2;
+  --color-divider: #d4dce6;
+  --color-border: #c8d3de;
+  --color-text: #1a2332;
+  --color-text-muted: #607080;
+  --color-text-faint: #6f8398;
+  --color-text-inverse: #ffffff;
+  --color-primary: #1a6eb5;
+  --color-primary-hover: #1558a0;
+  --color-primary-active: #0e3f79;
+  --color-primary-highlight: #d0e3f5;
+  --color-success: #1a8c4e;
+  --color-success-highlight: #d0f0e0;
+  --color-gold: #d4930a;
+  --color-gold-highlight: #fdf0d0;
+  --color-orange: #c75c0e;
+  --color-error: #c0392b;
+  --color-error-highlight: #fde8e6;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1.25rem;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 3px rgba(26,35,50,0.08);
+  --shadow-md: 0 4px 16px rgba(26,35,50,0.10);
+  --shadow-lg: 0 12px 40px rgba(26,35,50,0.14);
+  --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+  --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem;
+  --space-12: 3rem; --space-16: 4rem;
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+  --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+  --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+  --font-display: 'Unbounded', 'Arial Black', sans-serif;
+  --font-body: 'Inter', 'Helvetica Neue', sans-serif;
+}
+[data-theme="dark"] {
+  --color-bg: #0e1520;
+  --color-surface: #151e2d;
+  --color-surface-2: #1a2438;
+  --color-surface-offset: #1e2a40;
+  --color-divider: #2a3650;
+  --color-border: #344260;
+  --color-text: #d8e6f4;
+  --color-text-muted: #7a9ab8;
+  --color-text-faint: #89a1bb;
+  --color-text-inverse: #0e1520;
+  --color-primary: #4d9de0;
+  --color-primary-hover: #3a8ace;
+  --color-primary-active: #2871b8;
+  --color-primary-highlight: #1a304a;
+  --color-success: #3dbf72;
+  --color-success-highlight: #1a3a28;
+  --color-gold: #f0b429;
+  --color-gold-highlight: #3a2e10;
+  --color-orange: #f07830;
+  --color-error: #e55;
+  --color-error-highlight: #3a1a1a;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.5);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: none; text-size-adjust: none; -webkit-font-smoothing: antialiased; }
+body { min-height: 100dvh; font-family: var(--font-body); font-size: var(--text-base); color: var(--color-text); background: var(--color-bg); line-height: 1.6; transition: background 0.3s, color 0.3s; }
+img, svg { display: block; max-width: 100%; }
+button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
+input { font: inherit; color: inherit; }
+a, button, input { transition: color var(--transition-interactive), background var(--transition-interactive), border-color var(--transition-interactive), box-shadow var(--transition-interactive), opacity var(--transition-interactive); }
+h1,h2,h3,h4 { text-wrap: balance; line-height: 1.15; }
+p { text-wrap: pretty; }
+:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; border-radius: var(--radius-sm); }
+
+/* === LAYOUT === */
+.app-header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-divider);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-3) var(--space-6);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
+}
+.logo { display: flex; align-items: center; gap: var(--space-3); text-decoration: none; color: var(--color-text); }
+.logo-svg { width: 36px; height: 36px; flex-shrink: 0; }
+.logo-text { font-family: var(--font-display); font-size: var(--text-sm); font-weight: 700; line-height: 1.1; }
+.logo-text span { display: block; color: var(--color-primary); font-size: var(--text-xs); font-weight: 400; font-family: var(--font-body); }
+.header-actions { display: flex; align-items: center; gap: var(--space-3); }
+.theme-toggle { width: 40px; height: 40px; border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; color: var(--color-text-muted); }
+.theme-toggle:hover { background: var(--color-surface-offset); color: var(--color-text); }
+
+.main { max-width: 1100px; margin: 0 auto; padding: var(--space-8) var(--space-4); }
+
+/* === HERO KPI === */
+.hero-kpi { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-8); box-shadow: var(--shadow-md); margin-bottom: var(--space-6); border: 1px solid var(--color-border); position: relative; overflow: hidden; }
+.hero-kpi::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, color-mix(in oklch, var(--color-primary) 8%, transparent), transparent 60%); pointer-events: none; }
+.kpi-grid { display: grid; grid-template-columns: 1fr auto; gap: var(--space-6); align-items: center; }
+.kpi-main {}
+.kpi-label { font-size: var(--text-xs); color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: var(--space-2); }
+.kpi-distance { font-family: var(--font-display); font-size: var(--text-2xl); font-weight: 900; color: var(--color-primary); line-height: 1; }
+.kpi-distance span { font-size: var(--text-lg); font-weight: 400; font-family: var(--font-body); color: var(--color-text-muted); margin-left: var(--space-2); }
+.kpi-total-label { font-size: var(--text-sm); color: var(--color-text-muted); margin-top: var(--space-2); }
+.kpi-city { text-align: right; }
+.kpi-city-emoji { font-size: 3rem; line-height: 1; }
+.kpi-city-name { font-family: var(--font-display); font-size: var(--text-sm); font-weight: 700; margin-top: var(--space-1); }
+.kpi-city-sub { font-size: var(--text-xs); color: var(--color-text-muted); }
+
+/* === PROGRESS BAR === */
+.progress-section { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-6) var(--space-8) var(--space-8); box-shadow: var(--shadow-sm); margin-bottom: var(--space-6); border: 1px solid var(--color-border); }
+.progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4); }
+.progress-title { font-size: var(--text-base); font-weight: 700; }
+.progress-pct { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 900; color: var(--color-primary); }
+.progress-track { height: 24px; background: var(--color-surface-offset); border-radius: var(--radius-full); overflow: visible; position: relative; margin-bottom: var(--space-4); }
+.progress-fill { height: 100%; border-radius: var(--radius-full); background: linear-gradient(90deg, var(--color-primary), color-mix(in oklch, var(--color-primary) 70%, var(--color-success))); transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1); position: relative; min-width: 24px; }
+.progress-walker {
+  position: absolute; right: -12px; top: 50%; transform: translateY(-50%);
+  font-size: 1.4rem; line-height: 1;
+  animation: walk 0.6s infinite alternate;
+}
+@keyframes walk { from { transform: translateY(-50%) rotate(-5deg); } to { transform: translateY(-58%) rotate(5deg); } }
+.city-markers { display: block; position: relative; min-height: 74px; margin-top: 12px; overflow: visible; }
+.city-dot {
+  position: absolute; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  width: 72px;
+}
+.city-dot-circle { width: 10px; height: 10px; border-radius: 50%; background: var(--color-divider); border: 2px solid var(--color-surface); box-shadow: 0 0 0 1px var(--color-border); transition: background 0.5s; }
+.city-dot-circle.reached { background: var(--color-primary); }
+.city-dot-label { font-size: 0.65rem; color: var(--color-text-faint); white-space: normal; line-height: 1.1; text-align: center; width: 72px; overflow: visible; text-overflow: clip; display: block; }
+.city-dot-label.reached { color: var(--color-primary); font-weight: 600; }
+
+/* === GRID === */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); margin-bottom: var(--space-6); }
+@media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+
+/* === CARDS === */
+.card { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-6); box-shadow: var(--shadow-sm); border: 1px solid var(--color-border); }
+.card-title { font-size: var(--text-base); font-weight: 700; margin-bottom: var(--space-4); display: flex; align-items: center; gap: var(--space-2); }
+.card-title .icon { font-size: 1.2em; }
+
+/* === LEADERBOARD === */
+.leaderboard-list { display: flex; flex-direction: column; gap: var(--space-2); }
+.leader-row { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3); border-radius: var(--radius-lg); background: var(--color-surface-2); border: 1px solid var(--color-divider); transition: background var(--transition-interactive); }
+.leader-row:hover { background: var(--color-surface-offset); }
+.leader-rank { font-family: var(--font-display); font-size: var(--text-sm); font-weight: 900; width: 28px; text-align: center; flex-shrink: 0; }
+.rank-1 { color: var(--color-gold); }
+.rank-2 { color: var(--color-text-muted); }
+.rank-3 { color: var(--color-orange); }
+.leader-name { flex: 1; font-size: var(--text-sm); font-weight: 600; }
+.leader-bar-wrap { flex: 2; background: var(--color-surface-offset); border-radius: var(--radius-full); height: 8px; overflow: hidden; }
+.leader-bar { height: 100%; border-radius: var(--radius-full); background: var(--color-primary); transition: width 1s cubic-bezier(0.16, 1, 0.3, 1); }
+.leader-steps { font-family: 'Inter', monospace; font-size: var(--text-xs); color: var(--color-text-muted); width: 72px; text-align: right; flex-shrink: 0; font-variant-numeric: tabular-nums; }
+.leader-km { font-size: var(--text-xs); color: var(--color-primary); width: 52px; text-align: right; flex-shrink: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* === FORM === */
+.form-section { margin-bottom: var(--space-6); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: var(--space-3); align-items: end; }
+@media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+.form-group { display: flex; flex-direction: column; gap: var(--space-1); }
+.form-label { font-size: var(--text-xs); font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.form-input {
+  height: 44px; padding: 0 var(--space-3);
+  background: var(--color-surface-2); border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md); font-size: var(--text-sm); color: var(--color-text);
+  width: 100%;
+}
+.form-input:focus { border-color: var(--color-primary); background: var(--color-surface); outline: none; box-shadow: 0 0 0 3px var(--color-primary-highlight); }
+.btn-primary {
+  height: 44px; padding: 0 var(--space-6);
+  background: var(--color-primary); color: var(--color-text-inverse);
+  border-radius: var(--radius-md); font-size: var(--text-sm); font-weight: 700;
+  white-space: nowrap; display: flex; align-items: center; gap: var(--space-2);
+}
+.btn-primary:hover { background: var(--color-primary-hover); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.btn-primary:active { background: var(--color-primary-active); transform: none; }
+.btn-danger { background: var(--color-error); color: #fff; }
+.btn-danger:hover { opacity: 0.85; }
+
+/* === STATS ROW === */
+.stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); margin-bottom: var(--space-6); }
+@media (max-width: 500px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+.stat-card { background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-4); border: 1px solid var(--color-border); text-align: center; }
+.stat-value { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 900; color: var(--color-text); margin-bottom: var(--space-1); font-variant-numeric: tabular-nums; }
+.stat-label { font-size: var(--text-xs); color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* === HISTORY TABLE === */
+.history-table { width: 100%; border-collapse: collapse; }
+.history-table th { font-size: var(--text-xs); color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.06em; padding: var(--space-2) var(--space-3); text-align: left; border-bottom: 1px solid var(--color-divider); }
+.history-table td { font-size: var(--text-sm); padding: var(--space-3); border-bottom: 1px solid color-mix(in oklch, var(--color-divider) 50%, transparent); vertical-align: middle; font-variant-numeric: tabular-nums; }
+.history-table tr:hover td { background: var(--color-surface-2); }
+.history-table .del-btn { color: var(--color-text-faint); font-size: var(--text-xs); padding: 2px 6px; border-radius: var(--radius-sm); }
+.history-table .del-btn:hover { color: var(--color-error); background: var(--color-error-highlight); }
+.empty-state { text-align: center; padding: var(--space-10) var(--space-8); color: var(--color-text-muted); }
+.empty-icon { font-size: 2.5rem; margin-bottom: var(--space-3); }
+
+/* === CHECKPOINT BADGE === */
+.checkpoint-banner {
+  background: linear-gradient(135deg, var(--color-gold-highlight), var(--color-success-highlight));
+  border: 1.5px solid var(--color-gold);
+  border-radius: var(--radius-lg); padding: var(--space-4) var(--space-5);
+  display: flex; align-items: center; gap: var(--space-3);
+  margin-bottom: var(--space-4); animation: pulse-in 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes pulse-in { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.checkpoint-banner .badge-emoji { font-size: 1.8rem; }
+.checkpoint-banner .badge-text { font-size: var(--text-sm); font-weight: 600; }
+.checkpoint-banner .badge-text span { display: block; font-weight: 400; color: var(--color-text-muted); font-size: var(--text-xs); }
+
+/* === TOAST === */
+.toast {
+  position: fixed; bottom: var(--space-6); right: var(--space-6); z-index: 999;
+  background: var(--color-text); color: var(--color-bg);
+  padding: var(--space-3) var(--space-5); border-radius: var(--radius-lg);
+  font-size: var(--text-sm); font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  animation: slide-up 0.3s cubic-bezier(0.16,1,0.3,1);
+  max-width: 320px;
+}
+@keyframes slide-up { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+/* === WEEK BADGE === */
+.week-badge {
+  display: inline-flex; align-items: center; gap: var(--space-1);
+  background: var(--color-primary-highlight); color: var(--color-primary);
+  border-radius: var(--radius-full); padding: 2px 10px;
+  font-size: var(--text-xs); font-weight: 700;
+}
+
+/* === CONFETTI === */
+.confetti-piece {
+  position: fixed; width: 10px; height: 10px; top: -10px;
+  animation: confetti-fall linear forwards;
+  pointer-events: none; z-index: 9999; border-radius: 2px;
+}
+@keyframes confetti-fall {
+  to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .kpi-grid { grid-template-columns: 1fr; }
+  .kpi-city { text-align: left; display: flex; align-items: center; gap: var(--space-3); }
+  .hero-kpi { padding: var(--space-5); }
+  .progress-section { padding: var(--space-4) var(--space-5); }
+  .main { padding: var(--space-4) var(--space-3); }
+}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <a class="logo" href="#">
+    <svg class="logo-svg" viewBox="0 0 36 36" fill="none" aria-label="Шагаем до Владивостока" xmlns="http://www.w3.org/2000/svg">
+      <rect width="36" height="36" rx="8" fill="var(--color-primary)"/>
+      <!-- walking figure -->
+      <circle cx="18" cy="8" r="3.5" fill="white"/>
+      <path d="M18 11.5 L15 19 L12 25" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M18 11.5 L21 19 L24 25" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M15 16 L21 16" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+      <!-- destination flag -->
+      <path d="M27 10 L27 17 L31 13.5 Z" fill="white" opacity="0.85"/>
+    </svg>
+    <div class="logo-text">Шагаем<br>до Владивостока <span>Старт: пр-т Академика Сахарова, 12 · м. Красные ворота</span></div>
+  </a>
+  <div class="header-actions">
+    <button class="theme-toggle" data-theme-toggle aria-label="Переключить тему">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- Checkpoint banner (hidden by default) -->
+  <div id="checkpoint-banner" style="display:none"></div>
+
+  <!-- HERO KPI -->
+  <section class="hero-kpi" aria-label="Общий прогресс">
+    <div class="kpi-grid">
+      <div class="kpi-main">
+        <div class="kpi-label">🗺️ Пройдено командой</div>
+        <div class="kpi-distance" id="total-km">0<span>км</span></div>
+        <div class="kpi-total-label">из <strong>9 056 км</strong> до Владивостока · <span id="total-steps-display">0</span> шагов суммарно</div>
+      </div>
+      <div class="kpi-city">
+        <div class="kpi-city-emoji" id="current-city-emoji">🏁</div>
+        <div class="kpi-city-name" id="current-city-name">Москва</div>
+        <div class="kpi-city-sub" id="current-city-sub">Старт</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRESS BAR -->
+  <section class="progress-section" aria-label="Прогресс маршрута">
+    <div class="progress-header">
+      <div class="progress-title">📍 пр-т Академика Сахарова, 12 → Владивосток</div>
+      <div class="progress-pct" id="progress-pct">0%</div>
+    </div>
+    <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:0%">
+        <div class="progress-walker">🚶</div>
+      </div>
+    </div>
+    <div class="city-markers" id="city-markers" aria-hidden="true"></div>
+    <div id="cities-fallback" style="margin-top:8px; font-size:11px; color:var(--color-text-muted); line-height:1.5;">
+      Москва · Нижний Новгород · Казань · Пермь · Екатеринбург · Тюмень · Омск · Новосибирск · Красноярск · Иркутск · Улан-Удэ · Чита · Хабаровск · Владивосток
+    </div>
+  </section>
+
+  <!-- STATS ROW -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-value" id="stat-participants">0</div>
+      <div class="stat-label">Участников</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="stat-weeks">0</div>
+      <div class="stat-label">Недель записано</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="stat-remaining">9 056 км</div>
+      <div class="stat-label">Осталось км</div>
+    </div>
+  </div>
+
+  <!-- STATUS STRIP -->
+  <div class="card" style="padding:var(--space-4) var(--space-5); display:flex; justify-content:space-between; gap:var(--space-4); align-items:center; flex-wrap:wrap;">
+    <div style="font-size:var(--text-sm); color:var(--color-text);">Общий прогресс команды обновляется автоматически.</div>
+    <div id="data-sync-note" style="font-size:var(--text-xs); color:var(--color-text-muted);">Ожидание данных…</div>
+  </div>
+
+  <!-- LEADERBOARD + HISTORY -->
+  <div class="grid-2">
+    <!-- Leaderboard -->
+    <div class="card">
+      <div class="card-title"><span class="icon">🏆</span> Рейтинг участников</div>
+      <div class="leaderboard-list" id="leaderboard">
+        <div class="empty-state"><div class="empty-icon">🦶</div><div>Ещё никто не шагал</div><div style="font-size:var(--text-xs);margin-top:4px">Добавьте первые шаги!</div></div>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="card">
+      <div class="card-title"><span class="icon">📋</span> История записей</div>
+      <div style="overflow-x:auto">
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th>Участник</th>
+              <th>Неделя</th>
+              <th>Шагов</th>
+              <th>Км</th>
+              
+            </tr>
+          </thead>
+          <tbody id="history-body">
+            <tr><td colspan="5"><div class="empty-state" style="padding:var(--space-6)"><div class="empty-icon">📭</div>Записей нет</div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// === DATA ===
+const TOTAL_KM = 9056; // пр-т Академика Сахарова, 12 → Владивосток по трассе
+const STEPS_PER_KM = 1333; // 1000 steps / 0.75m
+
+const CITIES = [
+  { name: "Москва", km: 0, emoji: "🏁" },
+  { name: "Нижний Новгород", km: 400, emoji: "🏙️" },
+  { name: "Казань", km: 800, emoji: "🕌" },
+  { name: "Пермь", km: 1150, emoji: "🏔️" },
+  { name: "Екатеринбург", km: 1420, emoji: "⚙️" },
+  { name: "Тюмень", km: 1750, emoji: "🛢️" },
+  { name: "Омск", km: 2200, emoji: "🌾" },
+  { name: "Новосибирск", km: 2800, emoji: "🌉" },
+  { name: "Красноярск", km: 3600, emoji: "🌲" },
+  { name: "Иркутск", km: 4500, emoji: "🦭" },
+  { name: "Улан-Удэ", km: 5100, emoji: "🐪" },
+  { name: "Чита", km: 5600, emoji: "🌄" },
+  { name: "Хабаровск", km: 7900, emoji: "🐯" },
+  { name: "Владивосток", km: 9056, emoji: "🌊" },
+];
+
+const CITY_JOKES = {
+  "Нижний Новгород": "Бросаем гречку в Волгу и идём дальше!",
+  "Казань": "Чак-чак съеден, татары нас благословили!",
+  "Пермь": "Уральские горы не остановят офисных чемпионов!",
+  "Екатеринбург": "Граница Европы и Азии пройдена. Мы теперь азиаты!",
+  "Тюмень": "Нефть тут под ногами, мы идём по нефти!",
+  "Омск": "Сибирь встретила нас объятиями (и комарами).",
+  "Новосибирск": "Половина Сибири позади! Ноги держитесь!",
+  "Красноярск": "Енисей перешли, медведь кивнул уважительно.",
+  "Иркутск": "Байкал! Пьём воду прямо из озера и шагаем дальше!",
+  "Улан-Удэ": "Буряты сказали: 'Ничосе вы нашагали'.",
+  "Чита": "Забайкалье — звучит как название финального босса. Мы прошли.",
+  "Хабаровск": "Последний рубеж! Владивосток чувствуется в воздухе!",
+  "Владивосток": "🎉 МЫ ДОШЛИ! 9 056 км от Сахарова, 12 до Тихого океана! 🎉",
+};
+
+const SHEET_URL_KEY = 'vladivostok_steps_sheet_url_v1';
+let entries = [];
+
+// === THEME TOGGLE ===
+(function(){
+  const t = document.querySelector('[data-theme-toggle]');
+  const r = document.documentElement;
+  let d = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+  r.setAttribute('data-theme', d);
+  const sunIcon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+  const moonIcon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  if (t) {
+    t.innerHTML = d === 'dark' ? sunIcon : moonIcon;
+    t.addEventListener('click', () => {
+      d = d === 'dark' ? 'light' : 'dark';
+      r.setAttribute('data-theme', d);
+      t.innerHTML = d === 'dark' ? sunIcon : moonIcon;
+      t.setAttribute('aria-label', 'Переключить тему');
+    });
+  }
+})();
+
+// === CITY MARKERS ===
+function buildCityMarkers() {
+  const container = document.getElementById('city-markers');
+  container.innerHTML = '';
+  CITIES.forEach((city, index) => {
+    const pct = (city.km / TOTAL_KM) * 100;
+    const dot = document.createElement('div');
+    dot.className = 'city-dot';
+    dot.style.left = pct + '%';
+    dot.style.top = (index % 2 === 0 ? '0px' : '14px');
+    dot.id = 'city-dot-' + city.km;
+    dot.innerHTML = `<div class="city-dot-circle" id="circle-${city.km}"></div><div class="city-dot-label" id="label-${city.km}">${city.km === 0 ? '🏁' : city.km === TOTAL_KM ? '🎯' : city.name}</div>`;
+    container.appendChild(dot);
+  });
+}
+
+// === COMPUTE TOTALS ===
+function getTotalKm() {
+  const totalSteps = entries.reduce((s, e) => s + e.steps, 0);
+  return totalSteps / STEPS_PER_KM;
+}
+
+function getCurrentCity(km) {
+  let current = CITIES[0];
+  for (let i = 0; i < CITIES.length; i++) {
+    if (km >= CITIES[i].km) current = CITIES[i];
+    else break;
+  }
+  return current;
+}
+
+function getNextCity(km) {
+  for (let i = 0; i < CITIES.length; i++) {
+    if (CITIES[i].km > km) return CITIES[i];
+  }
+  return null;
+}
+
+// === UPDATE UI ===
+function updateUI(previousKm) {
+  const totalSteps = entries.reduce((s, e) => s + e.steps, 0);
+  const totalKm = totalSteps / STEPS_PER_KM;
+  const capped = Math.min(totalKm, TOTAL_KM);
+  const pct = (capped / TOTAL_KM) * 100;
+
+  // KPI
+  document.getElementById('total-km').innerHTML = Math.round(capped).toLocaleString('ru') + '<span>км</span>';
+  document.getElementById('total-steps-display').textContent = totalSteps.toLocaleString('ru');
+  document.getElementById('progress-pct').textContent = pct.toFixed(1) + '%';
+
+  // Progress bar
+  const fill = document.getElementById('progress-fill');
+  fill.style.width = Math.max(0.5, pct) + '%';
+  document.getElementById('progress-track').setAttribute('aria-valuenow', Math.round(pct));
+
+  // City markers highlight
+  CITIES.forEach(city => {
+    const circle = document.getElementById('circle-' + city.km);
+    const label = document.getElementById('label-' + city.km);
+    if (circle && label) {
+      if (capped >= city.km) {
+        circle.classList.add('reached');
+        label.classList.add('reached');
+      } else {
+        circle.classList.remove('reached');
+        label.classList.remove('reached');
+      }
+    }
+  });
+
+  // Current city
+  const curr = getCurrentCity(capped);
+  const next = getNextCity(capped);
+  document.getElementById('current-city-emoji').textContent = curr.emoji;
+  document.getElementById('current-city-name').textContent = curr.name;
+  if (curr.km === TOTAL_KM) {
+    document.getElementById('current-city-sub').textContent = '🎉 Мы дошли!';
+  } else if (next) {
+    const remaining = Math.round(next.km - capped);
+    document.getElementById('current-city-sub').textContent = `${remaining} км до ${next.name} ${next.emoji}`;
+  }
+
+  // Stats
+  const participants = [...new Set(entries.map(e => e.name))];
+  const weeks = [...new Set(entries.map(e => e.week))];
+  document.getElementById('stat-participants').textContent = participants.length;
+  document.getElementById('stat-weeks').textContent = weeks.length;
+  document.getElementById('stat-remaining').textContent = Math.max(0, Math.round(TOTAL_KM - capped)).toLocaleString('ru');
+
+  // Check for new checkpoints
+  if (previousKm !== null) {
+    CITIES.forEach(city => {
+      if (city.km > 0 && previousKm < city.km && capped >= city.km) {
+        showCheckpoint(city);
+      }
+    });
+  }
+
+  // Leaderboard
+  updateLeaderboard();
+  // History
+  updateHistory();
+}
+
+function updateLeaderboard() {
+  const totals = {};
+  entries.forEach(e => {
+    totals[e.name] = (totals[e.name] || 0) + e.steps;
+  });
+  const sorted = Object.entries(totals).sort((a,b) => b[1] - a[1]);
+  const maxSteps = sorted.length > 0 ? sorted[0][1] : 1;
+  const container = document.getElementById('leaderboard');
+
+  if (sorted.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">🦶</div><div>Ещё никто не шагал</div><div style="font-size:var(--text-xs);margin-top:4px">Добавьте первые шаги!</div></div>';
+    return;
+  }
+
+  const rankEmojis = ['🥇','🥈','🥉'];
+  container.innerHTML = sorted.map(([name, steps], i) => {
+    const km = (steps / STEPS_PER_KM).toFixed(1);
+    const barPct = (steps / maxSteps) * 100;
+    const rankClass = i < 3 ? `rank-${i+1}` : '';
+    const rank = i < 3 ? rankEmojis[i] : (i + 1);
+    return `<div class="leader-row">
+      <div class="leader-rank ${rankClass}">${rank}</div>
+      <div class="leader-name">${escHtml(name)}</div>
+      <div class="leader-bar-wrap"><div class="leader-bar" style="width:${barPct}%"></div></div>
+      <div class="leader-km">${km} км</div>
+      <div class="leader-steps">${steps.toLocaleString('ru')}</div>
+    </div>`;
+  }).join('');
+}
+
+function updateHistory() {
+  const tbody = document.getElementById('history-body');
+  if (entries.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state" style="padding:var(--space-6)"><div class="empty-icon">📭</div>Записей нет</div></td></tr>';
+    return;
+  }
+  const sorted = [...entries].reverse();
+  tbody.innerHTML = sorted.map(e => {
+    const km = (e.steps / STEPS_PER_KM).toFixed(2);
+    return `<tr>
+      <td><strong>${escHtml(e.name)}</strong></td>
+      <td><span class="week-badge">Неделя ${e.week}</span></td>
+      <td>${e.steps.toLocaleString('ru')}</td>
+      <td>${km}</td>
+      <td><button class="del-btn" onclick="deleteEntry(${e.id})" title="Удалить запись" aria-label="Удалить">✕</button></td>
+    </tr>`;
+  }).join('');
+}
+
+// === REMOTE DATA ===
+async function loadRemoteData(showToastOnSuccess = false) {
+  try {
+    const res = await fetch('./data.json?t=' + Date.now(), { cache: 'no-store' });
+    const raw = await res.json();
+    entries = Array.isArray(raw) ? raw : (Array.isArray(raw.entries) ? raw.entries : []);
+    entries = entries
+      .map((e, index) => ({
+        id: index + 1,
+        name: String(e.name || '').trim(),
+        week: Number(e.week),
+        steps: Number(e.steps)
+      }))
+      .filter(e => e.name && Number.isFinite(e.week) && Number.isFinite(e.steps));
+    document.getElementById('data-sync-note').textContent = 'Данные обновлены: ' + new Date().toLocaleString('ru-RU');
+    updateUI(null);
+    if (showToastOnSuccess) showToast(`✅ Загружено ${entries.length} записей`);
+  } catch (e) {
+    console.error(e);
+    document.getElementById('data-sync-note').textContent = 'Не удалось загрузить данные';
+    showToast('⚠️ Не удалось загрузить data.json');
+  }
+}
+
+// === ADD ENTRY ===
+let nextId = 1;
+function addEntry() { showToast('Изменение данных выполняется администратором.'); return;
+
+  const nameEl = document.getElementById('input-name');
+  const stepsEl = document.getElementById('input-steps');
+  const weekEl = document.getElementById('input-week');
+
+  const name = nameEl.value.trim();
+  const steps = parseInt(stepsEl.value, 10);
+  const week = parseInt(weekEl.value, 10) || 1;
+
+  if (!name) { showToast('⚠️ Введите имя участника'); nameEl.focus(); return; }
+  if (!steps || steps <= 0) { showToast('⚠️ Введите количество шагов'); stepsEl.focus(); return; }
+  if (steps > 500000) { showToast('⚠️ Слишком много шагов. Вы точно не марафонец?'); stepsEl.focus(); return; }
+
+  const previousKm = getTotalKm();
+  entries.push({ id: nextId++, name, steps, week });
+
+  nameEl.value = '';
+  stepsEl.value = '';
+  weekEl.value = week + 1;
+
+  saveState();
+  updateUI(previousKm);
+
+  const km = (steps / STEPS_PER_KM).toFixed(1);
+  showToast(`✅ ${name}: +${steps.toLocaleString('ru')} шагов (${km} км)`);
+  nameEl.focus();
+}
+
+// === DELETE ENTRY ===
+function deleteEntry(id) {
+  showToast('Изменение данных выполняется администратором.');
+}
+
+// === CHECKPOINT ===
+function showCheckpoint(city) {
+  const banner = document.getElementById('checkpoint-banner');
+  const joke = CITY_JOKES[city.name] || `Добрались до ${city.name}!`;
+  banner.style.display = 'flex';
+  banner.innerHTML = `
+    <div class="checkpoint-banner" style="width:100%">
+      <div class="badge-emoji">${city.emoji}</div>
+      <div class="badge-text">
+        🎉 Команда дошла до ${city.name}!
+        <span>${joke}</span>
+      </div>
+    </div>`;
+  if (city.km === 9000) launchConfetti();
+  setTimeout(() => { banner.style.display = 'none'; }, 8000);
+  banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// === CONFETTI ===
+function launchConfetti() {
+  const colors = ['#1a6eb5','#f0b429','#3dbf72','#f07830','#e55','#4d9de0'];
+  for (let i = 0; i < 80; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    el.style.cssText = `left:${Math.random()*100}vw; background:${colors[i%colors.length]}; animation-duration:${1.5+Math.random()*2}s; animation-delay:${Math.random()*0.5}s; width:${6+Math.random()*8}px; height:${6+Math.random()*8}px;`;
+    document.body.appendChild(el);
+    el.addEventListener('animationend', () => el.remove());
+  }
+}
+
+// === TOAST ===
+let toastTimer;
+function showToast(msg) {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  clearTimeout(toastTimer);
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  toastTimer = setTimeout(() => t.remove(), 3500);
+}
+
+// === HELPERS ===
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// === KEYBOARD ===
+document.getElementById('input-steps').addEventListener('keydown', e => { if (e.key === 'Enter') addEntry(); });
+document.getElementById('input-name').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('input-steps').focus(); });
+
+// === INIT ===
+buildCityMarkers();
+document.getElementById('sheet-url').value = getSavedSheetUrl();
+updateUI(null);
+if (getSavedSheetUrl()) loadFromGoogleSheet(false);
+setInterval(() => { if (getSavedSheetUrl()) loadFromGoogleSheet(false); }, 60000);
+</script>
+</body>
+</html>
